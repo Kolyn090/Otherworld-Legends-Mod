@@ -40,6 +40,10 @@ Navigate to the Steam folder where the game is stored. For example:
 ```
 Local Disk (C:)/Program Files (x86)/Steam/steamapps/common/Otherworld Legends
 ```
+
+![game_folder](/images/game_folder.png)
+
+
 The key is that you should see the `.exe` of playable game once you redirect to this folder 
 but in this case we are interested in the Otherworld Legends_Data folder (which should be in the 
 same directory as the game).
@@ -51,6 +55,8 @@ heroes, open spriteassetgroup_assets_assets -> needdynamicloadresources -> sprit
 
 I will stick with changing hero skin in the rest of the tutorial but you should be able to adapt the knowledge
 to other types of asset as well. 
+
+![spritereference_unit_hero](/images/spritereference_unit_hero.png)
 
 Search "unit_hero" in File Explorer. You should see many `BUNDLE` files.
 Keep in mind that the hero's internal name in the game's code may differ 
@@ -65,14 +71,20 @@ as example. In folder spritereference, search for unit_hero_seebee.
 Choose the top search result (should be Ginzo's default skin). Open the 
 asset file in AssetStudio.
 
+![unit_hero_seebee](/images/unit_hero_seebee.png)
+
 In AssetStudio's toolbar panel, locate Asset List. You should now see Ginzo's
 Sprites (shown in Preview). However, our main focus here is the file with 
 Type of Texture2D. It's called unit_hero_seebee. Select the file, in toolbar,
 locate Export -> Selected assets. Save the Texture2D to your PC. Close AssetStudio.
 
+![asset_studio_seebee](/images/asset_studio_seebee.png)
+
 In the exported Texture2D folder, you should see a `.png` inside. Modify it
 using a pixel art editor software such as Aesprite or docpict, etc. Save your work
 as `.png` as well.
+
+![aseprite_seebee_example](/images/aseprite_seebee_example.png)
 
 ### Step 4
 Now let's swap game assets. Extract UABEA and locate `UABEAvalonia.exe` and open it.
@@ -80,6 +92,10 @@ Click File -> Open. -> Locate the unit_hero_seebee file from earlier and open it
 You should see a popup window. Choose Memory. Now you should see everything loaded into the 
 software. Here we are only interested in the file with Type being Texture2D. Enlarger
 the window to see file Type.
+
+![uabea_assets_info](/images/uabea_assets_info.png)
+
+![replace_texture](/images/replace_texture.png)
 
 Open and select that file. On the toolbar to the right, find Plugins -> Edit texture -> Ok.
 Click the Load button and locate your modified version (`.png`) to replace it. 
@@ -103,7 +119,12 @@ Enter the following command (⚠️This is mine. Remember to change to yours)
 ```
 "C:\Users\kolynlin\Downloads\AddrTool\Example.exe" patchcrc "C:\Program Files (x86)\Steam\steamapps\common\Otherworld Legends\Otherworld Legends_Data\StreamingAssets\aa\catalog.json"
 ```
+
+![command_prompt](/images/command_prompt.png)
+
 🎉 That's all for modifying a hero's skin. Have fun with it.
+
+![golden_ginzo](/images/golden_ginzo.png)
 
 ---
 
