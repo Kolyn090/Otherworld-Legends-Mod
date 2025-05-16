@@ -11,6 +11,9 @@
 
 教程日期：5/15/2025
 
+⚡ **警告**：模组修改可能带来未知风险，包括游戏不稳定、存档损坏、兼容性问题，甚至安全漏洞。切记备份游戏文件，并谨慎操作。
+风险自担——如果出现问题，我无法承担责任。
+
 ### 步骤一
 首先，你需要下载[AssetStudio](https://github.com/Perfare/AssetStudio/releases)。
 我使用的是AssetStudio.net6.v0.16.47。这个版本要求你下载[.NET 6.0](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
