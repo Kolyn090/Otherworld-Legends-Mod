@@ -1,7 +1,7 @@
 # Otherworld-Legends-Mod
 [Original tutorial](https://b23.tv/IkX17vZ) (Chinese) written by 咖喱猫扒饭 on Bilibili.
 
-中文教程点击[此处](README_zh.md)。
+中文教程点击[此处](README_中文)。
 
 This modding tutorial is intended only for Steam version Otherworld Legends. If you are targeting Android, you will need
 to do a few additional steps to deal with apk. I won't do this unless someone requests it.
