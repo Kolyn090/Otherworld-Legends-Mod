@@ -229,7 +229,7 @@ unit_hero_quanhuying_bartender文件。就像在初始教程里做的那样。
 
 ![check_source_dump](/images/check_source_dump.png)
 
-现在从本教程的‘scripts’里找到‘ReplacePathID38.cs’并放在Unity的'Editor‘文件夹里。
+现在从本教程的‘scripts’里找到‘ReplacePathID38.cs’(AI生成，已检查✅)并放在Unity的'Editor‘文件夹里。
 Unity运行完成后你的Tools会多一个叫’Replace Line 38 From Folder‘的选项。放入
 ‘Source Bundle’和‘My Bundle’并点击‘Replace Line 38’。
 
