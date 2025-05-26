@@ -12,6 +12,9 @@
 本教程将指引你如何修改游戏角色图像（Sprite）的UV贴图。
 **这样做的目的是为了让你可以不受原贴图的大小限制修改角色皮肤。**
 
+![advance_in_game_test](/images/advance_in_game_test.png)
+（成果展示）
+
 ⚡ **警告**：模组修改可能带来未知风险，包括游戏不稳定、存档损坏、兼容性问题，甚至安全漏洞。切记备份游戏文件，并谨慎操作。
 风险自担——如果出现问题，我无法承担责任。
 
@@ -30,11 +33,12 @@
 
 
 在‘Dumps’这个文件夹里面，创建两个新的文件夹。将其命名为‘Game Bundle’和
-‘My Bundle’。
+‘My Bundle’。（我这里笔误了，其实叫Game Dumps和My Dumps会更好）
 
 ![dumps_folders](/images/dumps_folders.png)
 
 出于教学目的，本教程仅展示将权虎鹰的马甲裙皮肤的初始状态修改为天人道boss的初始状态。
+(不一定要天人道boss，你如果愿意自己画也可以但是要记得修改Spritesheet)
 
 它们在spritereference的命名前缀为：
 
@@ -162,3 +166,103 @@ Texture2D选择马甲裙。
 
 ![tianrendao_sprite_aligned](/images/tianrendao_sprite_aligned.png)
 
+再检查一下马甲裙。
+
+![check_sprite](/images/check_sprite.png)
+
+### 步骤六
+这一步我们来学习如何正确打包。选择马甲裙的Texture2D，然后找到这个选项。
+
+![make_bundle](/images/make_bundle.png)
+
+选择'New...',输入‘unit_hero_quanhuying_bartender’，注意不要打错字。
+
+![new_bundle_name](/images/new_bundle_name.png)
+
+在本教程的‘scripts’文件夹，找到‘AssetBundleBuilder.cs’。把它加到’Editor‘文件夹里面。
+在Unity运行完成后，你会在Tools里看见一个叫Build Bundles的选项。选择马甲裙然后点击改选项。
+
+![build_bundles](/images/build_bundles.png)
+
+等待运行完成后你会发现‘AssetBundles’文件夹里面多出来一些文件。其中有个叫
+‘unit_hero_quanhuying_bartender’的文件我们是可以用UABEA打开的。
+
+![built_bundles](/images/built_bundles.png)
+
+### 步骤七
+在UABEA打开‘unit_hero_quanhuying_bartender’（刚刚生成的Bundle）。
+选择Memory，然后Info。点击‘Name’排序一下。
+
+![my_bundle_uabea](/images/my_bundle_uabea.png)
+
+
+接下来我想让你找到以下文件。
+1. unit_hero_quanhuying_bartender_0
+2. unit_hero_quanhuying_bartender_1
+3. unit_hero_quanhuying_bartender_2
+4. unit_hero_quanhuying_bartender_3
+5. unit_hero_quanhuying_bartender_4
+6. unit_hero_quanhuying_bartender_5
+7. unit_hero_quanhuying_bartender_6
+
+选择它们后，点击‘Export Dump’，把它们放在Unity里面的‘Dumps/My Bundle’文件夹里面。
+保存为UABE text temp。
+
+![dump_from_my_bundle](/images/dump_from_my_bundle.png)
+
+检查一下‘My Bundle’。
+
+![check_exported_my_bundle](/images/check_exported_my_bundle.png)
+
+在‘Dumps'文件夹里面再创一个叫’Source Bundle‘的文件夹。
+
+![new_dump](/images/new_dump.png)
+
+然后开一个新的UABEA，在里面打开‘spritereference’中的
+unit_hero_quanhuying_bartender文件。就像在初始教程里做的那样。
+选择七个中任意一个unit_hero_quanhuying_bartender就行，
+然后也是和刚才一样Export Dump。不过这次是保存在’Source Bundle‘里。
+
+![uabea_for_source](/images/uabea_for_source.png)
+
+检查一下‘Source Bundle’。
+
+![check_source_dump](/images/check_source_dump.png)
+
+现在从本教程的‘scripts’里找到‘ReplacePathID38.cs’并放在Unity的'Editor‘文件夹里。
+Unity运行完成后你的Tools会多一个叫’Replace Line 38 From Folder‘的选项。放入
+‘Source Bundle’和‘My Bundle’并点击‘Replace Line 38’。
+
+![replace_line38](/images/replace_line38.png)
+
+（如果你想知道什么是更换第38行：如果你打开任意一个TextAsset的话，它的第38行是材质的路径id。
+这个数值在我们的打包里是随机的但是皮肤其实有一个自己的材质路径id。这是做的是替换成正确的id。）
+
+⚠️替换完成后清空一下‘Source Bundle’里的文件避免下次使用出bug。
+
+### 步骤八
+开一个新的UABEA，打开‘spritereference’里的unit_hero_quanhuying_bartender。
+Memory -> Info。和初始教程一样，找到Texture2D文件，Plugins -> Edit Texture -> Ok -> Load
+选择Unity里面的修改过的马甲裙Texture2D。保存步骤也和以前一样。
+
+然后再次在UABEA打开‘spritereference’里的unit_hero_quanhuying_bartender。这次的目的是替换Sprites。
+接下来这一步并不复杂但是需要重复人工操作。
+
+找到unit_hero_quanhuying_bartender_0，然后点击‘Import Dump”。
+在’My Bundle‘里找到其对应的文件。
+
+![import_dump](/images/import_dump.png)
+
+![corresponding_dump](/images/corresponding_dump.png)
+
+把1， 2， 3， 4， 5， 6的也这样做。然后还是以前的保存方法。
+
+做完这些后运行一下基础教程的步骤五（addrtool）就大功告成了。
+
+![advance_in_game_test](/images/advance_in_game_test.png)
+
+---
+
+本教程由Kolyn090（bilibili：木瓜凝乳蛋白酶）撰写。
+
+如果你觉得这个教程对你有帮助，可以考虑给此教程一个Star。
