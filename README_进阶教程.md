@@ -9,7 +9,7 @@
 
 教程日期：5/25/2025
 
-本教程将指引你如何修改游戏角色图像（Sprite）的UV贴图。
+本教程将指引你如何修改游戏角色图像Spritesheet。
 **这样做的目的是为了让你可以不受原贴图的大小限制修改角色皮肤。**
 
 ![advance_in_game_test](/images/advance_in_game_test.png)
@@ -69,6 +69,7 @@ unit_hero_quanhuying_bartender.asset
 ![extract_dumps](/images/extract_dumps.png)
 
 这是提取后的文件。我们只关心Sprite那个文件夹。
+
 ![extracted_folders](/images/extracted_folders.png)
 
 把两个Sprite文件夹重新取名为‘Quanhuyin_Sprite’和‘Tianrendao_Sprite’。
@@ -92,6 +93,7 @@ unit_hero_quanhuying_bartender.asset
 ### 步骤四
 
 接下来我们需要将切割Texture2D成多个Sprite。在本教程的scripts文件夹里面，找到
+
 [BatchSpriteDumpImporter.cs](/scripts/BatchSpriteDumpImporter.cs)。
 
 把这个csharp代码（AI生成，已检查✅）放进Editor文件夹。放入后Unity会自动跑一下。
@@ -133,8 +135,10 @@ unit_hero_quanhuying_bartender.asset
 ![texture2d_edit_mismatch](/images/texture2d_edit_mismatch.png)
 
 
-这一步可能会有些难理解。我们需要修改新图像的UV贴图变换。这里要做的就是从天人道boss
-的Sprite那边复制贴图变换到新的图像。
+这一步可能会有些难理解。我们需要修改新图像的Spritesheet。这里要做的就是从天人道boss
+的Sprite那边复制贴图变换到新的图像。⚠️如果你用的是其他的作画，你需要编辑Spritesheet然后
+测试并确保贴图位置是正确的。我这里就不给与演示了。你可以搜索一下如何使用Sprite Editor。
+当你完成编辑后跳到步骤六。
 
 首先在‘Game Bundle’创建一个新的文件夹，叫’Temp_Sprite‘。从’Tianrendao_Sprite‘那里复制前七个
 dumps到这里，然后从’Quanhuyin_Sprite‘那里复制除了前七个所有的dumps。简单来说就是换对应的dumps。
@@ -143,7 +147,8 @@ dumps到这里，然后从’Quanhuyin_Sprite‘那里复制除了前七个所�
 （红色部分是天人道boss）
 
 
-然后，在本教程的scripts里面找到RenameTextAssets.cs（AI生成，已检查✅），把它放进'Editor'。Unity运行完后
+然后，在本教程的scripts里面找到[RenameTextAssets.cs](/scripts/RenameTextAssets.cs)（AI生成，已检查✅），
+把它放进'Editor'。Unity运行完后
 你会在Tools里找到一个叫Rename TextAssets Window的新选项。
 
 ![rename_text_assets](/images/rename_text_assets.png)
@@ -179,7 +184,8 @@ Texture2D选择马甲裙。
 
 ![new_bundle_name](/images/new_bundle_name.png)
 
-在本教程的‘scripts’文件夹，找到‘AssetBundleBuilder.cs’。把它加到’Editor‘文件夹里面。
+在本教程的‘scripts’文件夹，找到[AssetBundleBuilder.cs](/scripts/AssetBundleBuilder.cs)。
+把它加到’Editor‘文件夹里面。
 在Unity运行完成后，你会在Tools里看见一个叫Build Bundles的选项。选择马甲裙然后点击改选项。
 
 ![build_bundles](/images/build_bundles.png)
@@ -214,7 +220,7 @@ Texture2D选择马甲裙。
 
 ![check_exported_my_bundle](/images/check_exported_my_bundle.png)
 
-在‘Dumps'文件夹里面再创一个叫’Source Bundle‘的文件夹。
+在‘Dumps'文件夹里面再创建一个叫’Source Bundle‘的文件夹。
 
 ![new_dump](/images/new_dump.png)
 
@@ -229,7 +235,8 @@ unit_hero_quanhuying_bartender文件。就像在初始教程里做的那样。
 
 ![check_source_dump](/images/check_source_dump.png)
 
-现在从本教程的‘scripts’里找到‘ReplacePathID38.cs’(AI生成，已检查✅)并放在Unity的'Editor‘文件夹里。
+现在从本教程的‘scripts’里找到[ReplacePathID38.cs](/scripts/ReplacePathID38.cs)(AI生成，已检查✅)
+并放在Unity的'Editor‘文件夹里。
 Unity运行完成后你的Tools会多一个叫’Replace Line 38 From Folder‘的选项。放入
 ‘Source Bundle’和‘My Bundle’并点击‘Replace Line 38’。
 
@@ -248,7 +255,7 @@ Memory -> Info。和初始教程一样，找到Texture2D文件，Plugins -> Edit
 然后再次在UABEA打开‘spritereference’里的unit_hero_quanhuying_bartender。这次的目的是替换Sprites。
 接下来这一步并不复杂但是需要重复人工操作。
 
-找到unit_hero_quanhuying_bartender_0，然后点击‘Import Dump”。
+找到unit_hero_quanhuying_bartender_0，然后点击‘Import Dump'。
 在’My Bundle‘里找到其对应的文件。
 
 ![import_dump](/images/import_dump.png)
