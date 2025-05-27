@@ -13,6 +13,7 @@
 **这样做的目的是为了让你可以不受原贴图的大小限制修改角色皮肤。**
 
 ![advance_in_game_test](/images/advance_in_game_test.png)
+
 （成果展示）
 
 ⚡ **警告**：模组修改可能带来未知风险，包括游戏不稳定、存档损坏、兼容性问题，甚至安全漏洞。切记备份游戏文件，并谨慎操作。
@@ -32,8 +33,7 @@
 ![unity_create_project](/images/unity_create_project.png)
 
 
-在‘Dumps’这个文件夹里面，创建两个新的文件夹。将其命名为‘Game Bundle’和
-‘My Bundle’。（我这里笔误了，其实叫Game Dumps和My Dumps会更好）
+在‘Dumps’这个文件夹里面，创建两个新的文件夹。将其命名为‘Game Dump’和‘My Dump’。
 
 ![dumps_folders](/images/dumps_folders.png)
 
@@ -73,7 +73,7 @@ unit_hero_quanhuying_bartender.asset
 ![extracted_folders](/images/extracted_folders.png)
 
 把两个Sprite文件夹重新取名为‘Quanhuyin_Sprite’和‘Tianrendao_Sprite’。
-再把它们放到Game Bundle里面。
+再把它们放到Game Dump里面。
 
 ![game_bundles](/images/game_bundles.png)
 
@@ -140,7 +140,7 @@ unit_hero_quanhuying_bartender.asset
 测试并确保贴图位置是正确的。我这里就不给与演示了。你可以搜索一下如何使用Sprite Editor。
 当你完成编辑后跳到步骤六。
 
-首先在‘Game Bundle’创建一个新的文件夹，叫’Temp_Sprite‘。从’Tianrendao_Sprite‘那里复制前七个
+首先在‘Game Dump’创建一个新的文件夹，叫’Temp_Sprite‘。从’Tianrendao_Sprite‘那里复制前七个
 dumps到这里，然后从’Quanhuyin_Sprite‘那里复制除了前七个所有的dumps。简单来说就是换对应的dumps。
 
 ![temp_sprite](/images/temp_sprite.png)
@@ -211,41 +211,41 @@ Texture2D选择马甲裙。
 6. unit_hero_quanhuying_bartender_5
 7. unit_hero_quanhuying_bartender_6
 
-选择它们后，点击‘Export Dump’，把它们放在Unity里面的‘Dumps/My Bundle’文件夹里面。
+选择它们后，点击‘Export Dump’，把它们放在Unity里面的‘Dumps/My Dump’文件夹里面。
 保存为UABE text temp。
 
 ![dump_from_my_bundle](/images/dump_from_my_bundle.png)
 
-检查一下‘My Bundle’。
+检查一下‘My Dump’。
 
 ![check_exported_my_bundle](/images/check_exported_my_bundle.png)
 
-在‘Dumps'文件夹里面再创建一个叫’Source Bundle‘的文件夹。
+在‘Dumps'文件夹里面再创建一个叫’Source Dump‘的文件夹。
 
 ![new_dump](/images/new_dump.png)
 
 然后开一个新的UABEA，在里面打开‘spritereference’中的
 unit_hero_quanhuying_bartender文件。就像在初始教程里做的那样。
 选择七个中任意一个unit_hero_quanhuying_bartender就行，
-然后也是和刚才一样Export Dump。不过这次是保存在’Source Bundle‘里。
+然后也是和刚才一样Export Dump。不过这次是保存在’Source Dump‘里。
 
 ![uabea_for_source](/images/uabea_for_source.png)
 
-检查一下‘Source Bundle’。
+检查一下‘Source Dump’。
 
 ![check_source_dump](/images/check_source_dump.png)
 
 现在从本教程的‘scripts’里找到[ReplacePathID38.cs](/scripts/ReplacePathID38.cs)(AI生成，已检查✅)
 并放在Unity的'Editor‘文件夹里。
 Unity运行完成后你的Tools会多一个叫’Replace Line 38 From Folder‘的选项。放入
-‘Source Bundle’和‘My Bundle’并点击‘Replace Line 38’。
+‘Source Dump’和‘My Dump’并点击‘Replace Line 38’。
 
 ![replace_line38](/images/replace_line38.png)
 
 （如果你想知道什么是更换第38行：如果你打开任意一个TextAsset的话，它的第38行是材质的路径id。
 这个数值在我们的打包里是随机的但是皮肤其实有一个自己的材质路径id。这是做的是替换成正确的id。）
 
-⚠️替换完成后清空一下‘Source Bundle’里的文件避免下次使用出bug。
+⚠️替换完成后清空一下‘Source Dump’里的文件避免下次使用出bug。
 
 ### 步骤八
 开一个新的UABEA，打开‘spritereference’里的unit_hero_quanhuying_bartender。
@@ -256,7 +256,7 @@ Memory -> Info。和初始教程一样，找到Texture2D文件，Plugins -> Edit
 接下来这一步并不复杂但是需要重复人工操作。
 
 找到unit_hero_quanhuying_bartender_0，然后点击‘Import Dump'。
-在’My Bundle‘里找到其对应的文件。
+在’My Dump‘里找到其对应的文件。
 
 ![import_dump](/images/import_dump.png)
 

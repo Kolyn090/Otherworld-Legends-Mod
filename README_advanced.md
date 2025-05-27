@@ -35,7 +35,7 @@ project, create the following folders in Assets.
 
 ![unity_create_project](/images/unity_create_project.png)
 
-Inside 'Dumps', create 'Game Bundle' and 'My Bundle'.
+Inside 'Dumps', create 'Game Dump' and 'My Dump'.
 
 ![dumps_folders](/images/dumps_folders.png)
 
@@ -79,7 +79,7 @@ Here are the extracted contents. Our focus is on the Sprite folder.
 Do that for both Quanhuying bartender and Tianrendao Sprite.
 You should get two Sprite folders. Here I have renamed them to
 'Quanhuyin_Sprite' (spelling mistake) and 'Tianrendao_Sprite' 
-and put them inside the Game Bundle folder.
+and put them inside the Game Dump folder.
 
 ![game_bundles](/images/game_bundles.png)
 
@@ -155,7 +155,7 @@ manually adjust the Spritesheet and test them so that they look right. I won't b
 demonstrating how to do that here. Try search how to use Sprite Editor. After you are done,
 go to step 6.
 
-Create a new folder inside 'Game Bundle', call it 'Temp_Sprite'. From 'Tianrendao_Sprite',
+Create a new folder inside 'Game Dump', call it 'Temp_Sprite'. From 'Tianrendao_Sprite',
 copy the first seven dumps to there, and also copy from 'Quanhuyin_Sprite' (all of them except
 the first seven). 
 
@@ -227,38 +227,38 @@ Select the following files.
 6. unit_hero_quanhuying_bartender_5
 7. unit_hero_quanhuying_bartender_6
 
-After you did that, click 'Export Dump', put them inside Unity 'Dumps/My Bundle'.
+After you did that, click 'Export Dump', put them inside Unity 'Dumps/My Dump'.
 Save as UABE text temp.
 
 ![dump_from_my_bundle](/images/dump_from_my_bundle.png)
 
-Check your 'My Bundle'.
+Check your 'My Dump'.
 
 ![check_exported_my_bundle](/images/check_exported_my_bundle.png)
 
-Create a new folder called 'Source Bundle' inside 'Dumps'.
+Create a new folder called 'Source Dump' inside 'Dumps'.
 
 ![new_dump](/images/new_dump.png)
 
 Open a new UABEA window, and from there open 'spritereference/unit_hero_quanhuyingbartender' file.
-Choose an arbitrary unit_hero_quanhuying_bartender file and Export Dump into the Source Bundle.
+Choose an arbitrary unit_hero_quanhuying_bartender file and Export Dump into the Source Dump.
 
 ![uabea_for_source](/images/uabea_for_source.png)
 
-Check your 'Source Bundle'.
+Check your 'Source Dump'.
 
 ![check_source_dump](/images/check_source_dump.png)
 
 Find [ReplacePathID38.cs](/scripts/ReplacePathID38.cs) (manually verified AI code✅) and put that
 in Unity Editor folder. After Unity executes that you should see a new option called 
-'Replace Line 38 From Folder'. Match 'Source Bundle' and 'My Bundle' and click 'Replace Line 38'.
+'Replace Line 38 From Folder'. Match 'Source Dump' and 'My Dump' and click 'Replace Line 38'.
 
 ![replace_line38](/images/replace_line38.png)
 
 (FYI: Line 38 in a TextAsset is the PathID of texture. We do this to change our bundle's
 PathID to the source bundle's PathID.)
 
-⚠️ After the replacement is complete. Delete all files inside 'Source Bundle' to avoid bugs
+⚠️ After the replacement is complete. Delete all files inside 'Source Dump' to avoid bugs
 next time you make mod.
 
 ### Step 8
@@ -270,7 +270,7 @@ Next open 'spritereference/unit_hero_quanhuyingbartender' file again. This time 
 Sprtes.
 
 Select unit_hero_quanhuying_bartender_0. Click 'Import Dump'.
-Find the corresponding file in 'My Bundle'.
+Find the corresponding file in 'My Dump'.
 
 ![import_dump](/images/import_dump.png)
 
