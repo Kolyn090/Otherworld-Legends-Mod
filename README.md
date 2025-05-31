@@ -1,7 +1,7 @@
 # Otherworld-Legends-Mod
 [Original tutorial](https://b23.tv/IkX17vZ) (Chinese) written by 咖喱猫扒饭 on Bilibili.
 
-🌟 中文教程点击[此处](README_中文)。
+🌟 中文教程点击[此处](/README_中文)。
 
 🌟 [Advanced Tutorial](/README_advanced.md) (English)
 
