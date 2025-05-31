@@ -1,7 +1,9 @@
 # Otherworld-Legends-Mod
 [Original tutorial](https://b23.tv/IkX17vZ) (Chinese) written by 咖喱猫扒饭 on Bilibili.
 
-中文教程点击[此处](README_中文)。
+🌟 中文教程点击[此处](README_中文)。
+
+🌟 [Advanced Tutorial](/README_advanced.md) (English)
 
 This modding tutorial is intended only for Steam version Otherworld Legends. If you are targeting Android, you will need
 to do a few additional steps to deal with apk. I won't do this unless someone requests it.
@@ -125,6 +127,8 @@ Enter the following command (⚠️This is mine. Remember to change to yours)
 🎉 That's all for modifying a hero's skin. Have fun with it.
 
 ![golden_ginzo](/images/golden_ginzo.png)
+
+Completed this tutorial? Interested in the [Advanced Tutorial](/README_advanced.md)?
 
 ---
 
