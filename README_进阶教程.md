@@ -1,5 +1,5 @@
 # Otherworld-Legends-Mod 进阶教程
-在阅读本教程前，请先学习[基础教程](README_中文.md)。
+在阅读本教程前，请先学习[基础教程](/README_中文.md)。
 
 作者：Kolyn090
 
@@ -9,7 +9,7 @@
 
 教程日期：5/25/2025
 
-本教程将指引你如何修改游戏角色图像Spritesheet。
+本教程将指引你修改游戏角色图像Spritesheet。
 **这样做的目的是为了让你可以不受原贴图的大小限制修改角色皮肤。**
 
 ![advance_in_game_test](/images/advance_in_game_test.png)
