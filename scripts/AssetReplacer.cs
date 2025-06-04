@@ -9,10 +9,10 @@ public class AssetReplacer : EditorWindow
     private string standaloneWindowsPath = "";
     private string modFolderPath = "";
 
-    [MenuItem("Tools/Apply Mod")]
+    [MenuItem("Tools/Asset Replacer")]
     static void ShowWindow()
     {
-        GetWindow<ModApplier>("Apply Mod");
+        GetWindow<ModApplier>("Asset Replacer");
     }
 
     private void OnGUI()
