@@ -38,7 +38,7 @@ Community 2022。 点击Modify。在Individual components，输入“Visual C++�
 ```
 Local Disk (C:)/Program Files (x86)/Steam/steamapps/common/Otherworld Legends
 ```
-![game_folder](/images/game_folder.png)
+![game_folder](/images/a/game_folder.png)
 
 如果你成功打开该文件夹，你应该会看见一个叫Otherworld Legends的可执行文件，这个就是可以打开玩的游戏了，不过我们的侧重点在
 Otherworld Legends_Data这个文件夹。
@@ -48,7 +48,7 @@ Otherworld Legends_Data这个文件夹。
 这里汇集了我们可以更改替换的游戏资源。比如你想改游戏英雄皮肤。就打开
 spriteassetgroup_assets_assets -> needdynamicloadresources -> spritereference。
 
-![spritereference_unit_hero](/images/spritereference_unit_hero.png)
+![spritereference_unit_hero](/images/a/spritereference_unit_hero.png)
 
 查找“unit_hero”，你会看见很多后缀为BUNDLE的文件。权虎鹰的内部命名为quanhuying，
 银藏是seebee。我们可以用AssetStudio打开这些文件来确认哪个文件是属于哪位角色的。
@@ -59,18 +59,18 @@ spriteassetgroup_assets_assets -> needdynamicloadresources -> spritereference。
 左上角点击File -> Load file，然后找到一个角色的BUNDLE文件。拿银藏举例，在spritereference里面搜索
 unit_hero_seebee，第一个搜到的就是银藏的原始皮肤。在AssetStudio打开该文件。
 
-![unit_hero_seebee](/images/unit_hero_seebee.png)
+![unit_hero_seebee](/images/a/unit_hero_seebee.png)
 
 然后在工具栏里找到Asset List，你应该会看见银藏的作画文件（会在Preview里面显示）。我们这里只需要关注一个文件，
 找到一个Type为Texture2D的文件，叫unit_hero_seebee。选择该文件，在工具栏找到Export -> Selected assets，
 保存Texture2D到一个你记得住的地方。
 
-![asset_studio_seebee](/images/asset_studio_seebee.png)
+![asset_studio_seebee](/images/a/asset_studio_seebee.png)
 
 接下来你就可以展现一下你的画工了。推荐使用Aseprite编辑，当然你也可以使用像dotpict这样的免费软件。
 保存你编辑好的unit_hero_seebee.png文件到一个你记得住的地方。记住编辑好的文件也应该是原来的后缀。
 
-![aseprite_seebee_example](/images/aseprite_seebee_example.png)
+![aseprite_seebee_example](/images/a/aseprite_seebee_example.png)
 
 ### 步骤四
 在这个步骤我们会使用UABEA来替换资源。解压下载好的UABEA，在其中找到UABEAvalonia可执行文件，打开它。
@@ -78,9 +78,9 @@ unit_hero_seebee，第一个搜到的就是银藏的原始皮肤。在AssetStudi
 然后你应该会看见一个弹出窗口提示。选择Memory就行。接着你会看见所有载入好的文件，还是一样，我们只关心
 Type是Texture2D的那个文件。如果你看不见Type可以扩展一下你的窗口。
 
-![uabea_assets_info](/images/uabea_assets_info.png)
+![uabea_assets_info](/images/a/uabea_assets_info.png)
 
-![replace_texture](/images/replace_texture.png)
+![replace_texture](/images/a/replace_texture.png)
 
 找到并选择该文件，在右边的工具栏，找到Plugins -> Edit texture -> Ok。 然后最下面有个Texture，
 点击它旁边的Load，找到你编辑好的文件就可以替换它了。然后点击Save。在Assets Info窗口的上方工具栏File -> Save。
@@ -104,11 +104,11 @@ Type是Texture2D的那个文件。如果你看不见Type可以扩展一下你的
 "C:\Users\kolynlin\Downloads\AddrTool\Example.exe" patchcrc "C:\Program Files (x86)\Steam\steamapps\common\Otherworld Legends\Otherworld Legends_Data\StreamingAssets\aa\catalog.json"
 ```
 
-![command_prompt](/images/command_prompt.png)
+![command_prompt](/images/a/command_prompt.png)
 
 至此为止你应该就成功替换银藏的初始皮肤了。打开游戏并以确认。
 
-![golden_ginzo](/images/golden_ginzo.png)
+![golden_ginzo](/images/a/golden_ginzo.png)
 
 完成了基础教程，试试看这个[进阶教程](/README_进阶教程.md)吧！
 

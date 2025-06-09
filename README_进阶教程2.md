@@ -34,7 +34,7 @@
 ```
 然后是要替换的图像：
 
-![sactx-0-128x128-BC7-unit_other_pile-1aae59fd](/images/sactx-0-128x128-BC7-unit_other_pile-1aae59fd.png)
+![sactx-0-128x128-BC7-unit_other_pile-1aae59fd](/images/b/sactx-0-128x128-BC7-unit_other_pile-1aae59fd.png)
 
 [Credit](https://www.spriters-resource.com/pc_computer/pizzatower/sheet/193192/)
 
