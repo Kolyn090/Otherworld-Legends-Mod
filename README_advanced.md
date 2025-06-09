@@ -12,7 +12,7 @@ Date: 5/15/2025
 This tutorial intends to teach you how to modify game character's Spritesheet 
 **so that you can edit beyond the boundary of the source Sprite.**
 
-![advance_in_game_test](/images/advance_in_game_test.png)
+![advance_in_game_test](/images/b/advance_in_game_test.png)
 (The final result you will get by the end of this tutorial)
 
 ⚡ **IMPORTANT**: Modding comes with unknown risks, including potential game 
@@ -33,11 +33,11 @@ of Unity first before proceed any further.
 Create a new Unity Project. Choose Unity 3D as template. After you created the
 project, create the following folders in Assets.
 
-![unity_create_project](/images/unity_create_project.png)
+![unity_create_project](/images/b/unity_create_project.png)
 
 Inside 'Dumps', create 'Game Dump' and 'My Dump'.
 
-![dumps_folders](/images/dumps_folders.png)
+![dumps_folders](/images/b/dumps_folders.png)
 
 For the purpose of teaching, this tutorial will show you how to replace the idle
 state spritesheets of Quanhuying's bartender skin to the idle state spritesheet of
@@ -52,11 +52,11 @@ unit_hero_quanhuying_bartender.asset
 
 Use AssetStudio to extract their Texture2D files. Put them inside 'Texture2D' in Unity.
 
-![unity_texture2d](/images/unity_texture2d.png)
+![unity_texture2d](/images/b/unity_texture2d.png)
 
 Next select those two files and make the following adjustments in the Inspector.
 
-![texture2d_parameter](/images/texture2d_parameter.png)
+![texture2d_parameter](/images/b/texture2d_parameter.png)
 
 Make sure:
 1. Texture Type = Sprite (2D and UI)
@@ -70,31 +70,31 @@ Make sure:
 
 Next, use AssetStudio to extract all Dump files.
 
-![extract_dumps](/images/extract_dumps.png)
+![extract_dumps](/images/b/extract_dumps.png)
 
 Here are the extracted contents. Our focus is on the Sprite folder.
 
-![extracted_folders](/images/extracted_folders.png)
+![extracted_folders](/images/b/extracted_folders.png)
 
 Do that for both Quanhuying bartender and Tianrendao Sprite.
 You should get two Sprite folders. Here I have renamed them to
 'Quanhuyin_Sprite' (spelling mistake) and 'Tianrendao_Sprite' 
 and put them inside the Game Dump folder.
 
-![game_bundles](/images/game_bundles.png)
+![game_bundles](/images/b/game_bundles.png)
 
 ### Step 3
 Next, download Unity's Sprite Editor. Open Package manager.
 
-![package_manager_location](/images/package_manager_location.png)
+![package_manager_location](/images/b/package_manager_location.png)
 
 Make sure you set Packages to Unity Registry.
 
-![unity_reg](/images/unity_reg.png)
+![unity_reg](/images/b/unity_reg.png)
 
 Find Features -> 2D -> 2D Sprite and download that.
 
-![download_sprite2d](/images/download_sprite2d.png)
+![download_sprite2d](/images/b/download_sprite2d.png)
 
 ### Step 4
 
@@ -105,29 +105,29 @@ script from the 'scripts' folder in this tutorial repo。
 Put the csharp script (manually verified AI code✅) inside the 
 Editor folder in Unity and wait for Unity to execute the code.
 
-![code_sprite_importer](/images/code_sprite_importer.png)
+![code_sprite_importer](/images/b/code_sprite_importer.png)
 
 You should see a new option in the Unity menu bar called Tools.
 Choose Batch Import Sprites From Dumps.
 
-![tools](/images/tools.png)
+![tools](/images/b/tools.png)
 
 It will show you a popup window. Drag the Tianrendao boss Texture2D file's icon
 into Target Texture, then drag Tianrendao_Sprite folder's icon to Dump Folder.
 Click 'Import All Dumps'.
 
-![use_sprite_importer](/images/use_sprite_importer.png)
+![use_sprite_importer](/images/b/use_sprite_importer.png)
 
 You should now see a small triangular icon next to Texture2D. If you click that
 you can see all sliced Sprites.
 
-![sliced_tianrendao](/images/sliced_tianrendao.png)
+![sliced_tianrendao](/images/b/sliced_tianrendao.png)
 
 (You can check in the Sprite Editor as well.)
 
-![where_is_sprite_editor](/images/where_is_sprite_editor.png)
+![where_is_sprite_editor](/images/b/where_is_sprite_editor.png)
 
-![sprite_editor](/images/sprite_editor.png)
+![sprite_editor](/images/b/sprite_editor.png)
 
 Apply this technique on Quanhuying's bartender Texture2D as well. 
 
@@ -139,14 +139,14 @@ Aesprite).
 It should look like this following (you will need to expand the canvas because Tianrendao
 boss is taller than Quanhuying)
 
-![draw](/images/draw.png)
+![draw](/images/b/draw.png)
 
 Save this image.
 
 Back to Unity, if you click the small triangular icon next to bartender's Texture2D. You
 should find the first 7 sprites changed. However, we still need more adjustments.
 
-![texture2d_edit_mismatch](/images/texture2d_edit_mismatch.png)
+![texture2d_edit_mismatch](/images/b/texture2d_edit_mismatch.png)
 
 Now this next thing might be hard to understand. We will need to change the Sprtisheet
 setting for the edited Sprites. Essentially copying the settings from the original
@@ -159,64 +159,64 @@ Create a new folder inside 'Game Dump', call it 'Temp_Sprite'. From 'Tianrendao_
 copy the first seven dumps to there, and also copy from 'Quanhuyin_Sprite' (all of them except
 the first seven). 
 
-![temp_sprite](/images/temp_sprite.png)
+![temp_sprite](/images/b/temp_sprite.png)
 (The red part is Tianrendao boss and the rest of them are Quanhuying)
 
 Next, copy [RenameTextAssets.cs](/scripts/RenameTextAssets.cs) (manually verified AI code✅) 
 from 'scripts'. After Unity executes it, you should find a new option called
 Rename TextAssets Window in Tools.
 
-![rename_text_assets](/images/rename_text_assets.png)
+![rename_text_assets](/images/b/rename_text_assets.png)
 
 Next drag the first 7 dumps that belongs to Tianrendao boss to the popup window.
 Enter name 'unit_hero_quanhuying_bartender'. Click 'Rename Files and Update Contents'.
 By doing so we have renamed the files.
 
-![rename](/images/rename.png)
+![rename](/images/b/rename.png)
 
 Using Batch Import Sprites From Dumps, choose Folder 'Temp_Sprite' and bartender Texture2D.
 
-![temp_sprite_usage](/images/temp_sprite_usage.png)
+![temp_sprite_usage](/images/b/temp_sprite_usage.png)
 
 Open bartender's Sprite Editor.
 
-![edit_uvmap](/images/edit_uvmap.png)
+![edit_uvmap](/images/b/edit_uvmap.png)
 
 Align the Spritesheet for Tianrendao and apply.
 
-![tianrendao_sprite_aligned](/images/tianrendao_sprite_aligned.png)
+![tianrendao_sprite_aligned](/images/b/tianrendao_sprite_aligned.png)
 
 Check bartender again.
 
-![check_sprite](/images/check_sprite.png)
+![check_sprite](/images/b/check_sprite.png)
 
 ### Step 6
 In this step we will learn how to make bundles. Select bartender Texture2D and 
 find this option.
 
-![make_bundle](/images/make_bundle.png)
+![make_bundle](/images/b/make_bundle.png)
 
 Choose 'New...', enter 'unit_hero_quanhuying_bartender'.
 
-![new_bundle_name](/images/new_bundle_name.png)
+![new_bundle_name](/images/b/new_bundle_name.png)
 
 Find [AssetBundleBuilder.cs](/scripts/AssetBundleBuilder.cs) in scripts folder and
 put that in Unity Editor. After Unity executes it, you should see a new option
 call Build Bundles. Now select bartender Texture2D and click that option.
 
-![build_bundles](/images/build_bundles.png)
+![build_bundles](/images/b/build_bundles.png)
 
 After it finishes, you will see a few new files inside 'AssetBundles'. 
 There is a file called 'unit_hero_quanhuying_bartender' we can open
 with UABEA.
 
-![built_bundles](/images/built_bundles.png)
+![built_bundles](/images/b/built_bundles.png)
 
 ### Step 7
 Open 'unit_hero_quanhuying_bartender' inside UABEA. Choose Memory -> Info.
 Sort them by name.
 
-![my_bundle_uabea](/images/my_bundle_uabea.png)
+![my_bundle_uabea](/images/b/my_bundle_uabea.png)
 
 Select the following files.
 1. unit_hero_quanhuying_bartender_0
@@ -230,30 +230,30 @@ Select the following files.
 After you did that, click 'Export Dump', put them inside Unity 'Dumps/My Dump'.
 Save as UABE text temp.
 
-![dump_from_my_bundle](/images/dump_from_my_bundle.png)
+![dump_from_my_bundle](/images/b/dump_from_my_bundle.png)
 
 Check your 'My Dump'.
 
-![check_exported_my_bundle](/images/check_exported_my_bundle.png)
+![check_exported_my_bundle](/images/b/check_exported_my_bundle.png)
 
 Create a new folder called 'Source Dump' inside 'Dumps'.
 
-![new_dump](/images/new_dump.png)
+![new_dump](/images/b/new_dump.png)
 
 Open a new UABEA window, and from there open 'spritereference/unit_hero_quanhuyingbartender' file.
 Choose an arbitrary unit_hero_quanhuying_bartender file and Export Dump into the Source Dump.
 
-![uabea_for_source](/images/uabea_for_source.png)
+![uabea_for_source](/images/b/uabea_for_source.png)
 
 Check your 'Source Dump'.
 
-![check_source_dump](/images/check_source_dump.png)
+![check_source_dump](/images/b/check_source_dump.png)
 
 Find [ReplacePathID38.cs](/scripts/ReplacePathID38.cs) (manually verified AI code✅) and put that
 in Unity Editor folder. After Unity executes that you should see a new option called 
 'Replace Line 38 From Folder'. Match 'Source Dump' and 'My Dump' and click 'Replace Line 38'.
 
-![replace_line38](/images/replace_line38.png)
+![replace_line38](/images/b/replace_line38.png)
 
 (FYI: Line 38 in a TextAsset is the PathID of texture. We do this to change our bundle's
 PathID to the source bundle's PathID.)
@@ -272,15 +272,15 @@ Sprtes.
 Select unit_hero_quanhuying_bartender_0. Click 'Import Dump'.
 Find the corresponding file in 'My Dump'.
 
-![import_dump](/images/import_dump.png)
+![import_dump](/images/b/import_dump.png)
 
-![corresponding_dump](/images/corresponding_dump.png)
+![corresponding_dump](/images/b/corresponding_dump.png)
 
 Do the same with 1, 2, 3, 4, 5, 6, then apply the exact same save process.
 
 After that, run the addrtool. Test it in the game.
 
-![advance_in_game_test](/images/advance_in_game_test.png)
+![advance_in_game_test](/images/b/advance_in_game_test.png)
 
 ---
 
