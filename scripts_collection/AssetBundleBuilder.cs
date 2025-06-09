@@ -8,10 +8,10 @@ public class AssetBundleBuilder : EditorWindow
     /*
         Pack **all** AssetBundles in the project. The best practice is to tag only
         AssetBundles that are necessary. In this way you can save some time and
-        resources. 
+        resources. The output will be stored in 'Assets/AssetBundles'.
 
         为项目中所有AssetBundle打包。请只标注（tag）你目前需要的AssetBundle，这样可以
-        节省时间和资源。
+        节省时间和资源。生成文件会被放在‘Assets/AssetBundles’。
     */
 
     private BuildTarget _buildPlatform = BuildTarget.StandaloneWindows64;
