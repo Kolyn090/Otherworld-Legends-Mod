@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System;
 
 
 public class ImportSliceFromDumps : EditorWindow
@@ -87,6 +88,17 @@ public class ImportSliceFromDumps : EditorWindow
             // }
             string assetPath = AssetDatabase.GetAssetPath(_targetTexture);
             TextureImporter ti = AssetImporter.GetAtPath(assetPath) as TextureImporter;
+            List<SpriteMetaData> metasToImport = new();
+
+            Dictionary<string, Vector2> identified = FindIdentifiedInfo();
+            if (identified == null)
+            {
+                Debug.LogError("Something is wrong. You probably didn't assign the correct Sprite folder for Texture2D.");
+            }
+            else
+            {
+                metasToImport.AddRange(ImportIdentifiedSlices(identified, ti.spritesheet));
+            }
 
             List<Rect> unidentified = FindUnidentifiedInfo();
             if (unidentified == null)
@@ -100,24 +112,16 @@ public class ImportSliceFromDumps : EditorWindow
                 //     Debug.Log(item);
                 // }
                 Debug.LogWarning("Please remember to rename the unidentified Sprites.");
-                ti = ImportUnidentifiedSlices(unidentified, ti, assetPath);
-            }
-
-            Dictionary<string, Vector2> identified = FindIdentifiedInfo();
-            if (identified == null)
-            {
-                Debug.LogError("Something is wrong. You probably didn't assign the correct Sprite folder for Texture2D.");
-            }
-            else
-            {
-                ti = ImportIdentifiedSlices(identified, ti, assetPath);
+                metasToImport.AddRange(ImportUnidentifiedSlices(unidentified, metasToImport));
             }
 
             if (ti != null)
             {
+                ti.spritesheet = metasToImport.ToArray();
                 EditorUtility.SetDirty(ti);
                 ti.SaveAndReimport();
                 AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
+                ViewSpriteSheet(_targetTexture);
             }
         }
 
@@ -234,18 +238,15 @@ public class ImportSliceFromDumps : EditorWindow
         return path;
     }
 
-    private TextureImporter ImportUnidentifiedSlices(List<Rect> rects, TextureImporter ti, string assetPath)
+    private List<SpriteMetaData> ImportUnidentifiedSlices(List<Rect> rects, List<SpriteMetaData> metasToImport)
     {
         static SpriteMetaData ParseDump(Rect rect, string name)
         {
-            float pivotX = 0.5f;
-            float pivotY = 0.5f;
-
             return new SpriteMetaData
             {
                 name = name,
                 rect = new Rect(rect.x, rect.y, rect.width, rect.height),
-                pivot = new Vector2(pivotX, pivotY),
+                pivot = new Vector2(0.5f, 0.5f),
                 alignment = (int)SpriteAlignment.Custom
             };
         }
@@ -255,17 +256,19 @@ public class ImportSliceFromDumps : EditorWindow
         string baseName = "0000_aaa";
         foreach (Rect rect in rects)
         {
-            metas.Add(ParseDump(rect, baseName + counter.ToString()));
+            SpriteMetaData data = ParseDump(rect, baseName + counter.ToString());
+            metas.Add(data);
             counter++;
         }
 
-        return ApplyToTextureUnidentified(metas, ti, assetPath);
+        return ApplyToTextureUnidentified(metas, metasToImport);
     }
 
-    private TextureImporter ApplyToTextureUnidentified(List<SpriteMetaData> addMetas, TextureImporter ti, string assetPath)
+    private List<SpriteMetaData> ApplyToTextureUnidentified(List<SpriteMetaData> addMetas,
+                                                            List<SpriteMetaData> currentMetas)
     {
         int GetValidNameIndex(int addMetaNameIndex,
-                                HashSet<int> aaaNamesInCurrentMetasIndices, 
+                                HashSet<int> aaaNamesInCurrentMetasIndices,
                                 HashSet<int> processedAddMetaNamesIndices)
         {
             bool IsInAnyList(int index)
@@ -293,88 +296,68 @@ public class ImportSliceFromDumps : EditorWindow
             return int.Parse(aaaName.Replace("0000_aaa", ""));
         }
 
-        if (ti != null)
+        // Do not override anything
+        // Is a sprite with the same name has been found, try to rename
+        // i.e. If 'aaa0' is in current sprites, rename my stuff to 'aaa1'
+        HashSet<int> aaaNamesInCurrentMetasIndices = new();
+        foreach (SpriteMetaData currentMeta in currentMetas)
         {
-            ti.textureType = TextureImporterType.Sprite;
-            ti.spriteImportMode = SpriteImportMode.Multiple;
-
-            // Do not override anything
-            // Is a sprite with the same name has been found, try to rename
-            // i.e. If 'aaa0' is in current sprites, rename my stuff to 'aaa1'
-            SpriteMetaData[] currentMetas = ti.spritesheet;
-            HashSet<int> aaaNamesInCurrentMetasIndices = new();
-            foreach (SpriteMetaData currentMeta in currentMetas)
+            if (currentMeta.name.StartsWith("0000_aaa"))
             {
-                if (currentMeta.name.StartsWith("0000_aaa"))
-                {
-                    aaaNamesInCurrentMetasIndices.Add(ParseIndex(currentMeta.name));
-                }
+                aaaNamesInCurrentMetasIndices.Add(ParseIndex(currentMeta.name));
             }
-
-            HashSet<int> processedAddMetaNamesIndices = new();
-            for (int i = 0; i < addMetas.Count(); i++)
-            {
-                SpriteMetaData addMeta = addMetas[i];
-                if (addMeta.name.StartsWith("0000_aaa"))
-                {
-                    int addIndex = ParseIndex(addMeta.name);
-                    int validIndex = GetValidNameIndex(addIndex, aaaNamesInCurrentMetasIndices, processedAddMetaNamesIndices);
-                    processedAddMetaNamesIndices.Add(validIndex);
-                    addMeta.name = "0000_aaa" + validIndex.ToString();
-                    addMetas[i] = addMeta;
-                }
-            }
-
-            List<SpriteMetaData> currentMetasList = currentMetas.ToList();
-            currentMetasList.AddRange(addMetas);
-            ti.spritesheet = currentMetasList.ToArray();
-
-            // EditorUtility.SetDirty(ti);
-            // ti.SaveAndReimport();
-            // AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-            return ti;
         }
-        else
+
+        HashSet<int> processedAddMetaNamesIndices = new();
+        for (int i = 0; i < addMetas.Count(); i++)
         {
-            Debug.LogWarning($"{assetPath} not found.");
-            return null;
+            SpriteMetaData addMeta = addMetas[i];
+            if (addMeta.name.StartsWith("0000_aaa"))
+            {
+                int addIndex = ParseIndex(addMeta.name);
+                int validIndex = GetValidNameIndex(addIndex, aaaNamesInCurrentMetasIndices, processedAddMetaNamesIndices);
+                processedAddMetaNamesIndices.Add(validIndex);
+                addMeta = new SpriteMetaData
+                {
+                    name = "0000_aaa" + validIndex.ToString(),
+                    rect = addMeta.rect,
+                    pivot = addMeta.pivot,
+                    alignment = addMeta.alignment,
+                    border = addMeta.border
+                };
+                addMetas[i] = addMeta;
+            }
         }
+
+        return addMetas;
     }
 
-    private TextureImporter ImportIdentifiedSlices(Dictionary<string, Vector2> namePivots, TextureImporter ti, string assetPath)
+    private List<SpriteMetaData> ImportIdentifiedSlices(Dictionary<string, Vector2> namePivots, SpriteMetaData[] currentMetas)
     {
-        if (ti != null)
+        List<SpriteMetaData> result = new();
+        for (int i = 0; i < currentMetas.Length; i++)
         {
-            ti.textureType = TextureImporterType.Sprite;
-            ti.spriteImportMode = SpriteImportMode.Multiple;
-
-            SpriteMetaData[] currentMetas = ti.spritesheet;
-
-            for (int i = 0; i < currentMetas.Length; i++)
+            string currentName = currentMetas[i].name;
+            currentName = currentName.Split(" #")[0];
+            if (namePivots.ContainsKey(currentName))
             {
-                string currentName = currentMetas[i].name;
-                currentName = currentName.Split(" #")[0];
-                if (namePivots.ContainsKey(currentName))
+                SpriteMetaData curr = currentMetas[i];
+                curr = new SpriteMetaData
                 {
-                    currentMetas[i].pivot = namePivots[currentName];
-                }
-                else
-                {
-                    Debug.LogError($"Sprite named {currentName} not found. Are you certain the Source Dump Folder is correct?");
-                }
+                    name = curr.name,
+                    rect = curr.rect,
+                    pivot = namePivots[currentName],
+                    alignment = curr.alignment,
+                    border = curr.border
+                };
+                result.Add(curr);
             }
-
-            ti.spritesheet = currentMetas;
-            // EditorUtility.SetDirty(ti);
-            // ti.SaveAndReimport();
-            // AssetDatabase.ImportAsset(assetPath, ImportAssetOptions.ForceUpdate);
-            return ti;
+            else
+            {
+                Debug.LogError($"Sprite named {currentName} not found. Are you certain the Source Dump Folder is correct?");
+            }
         }
-        else
-        {
-            Debug.LogWarning($"{assetPath} not found.");
-            return null;
-        }
+        return result;
     }
 
     private Dictionary<string, Vector2> FindIdentifiedInfo()
@@ -491,6 +474,7 @@ public class ImportSliceFromDumps : EditorWindow
 
         return unidentifiedRects;
     }
+
 
     private Dictionary<long, RenderDataKey> SpritePathID2RenderDataKey()
     {
