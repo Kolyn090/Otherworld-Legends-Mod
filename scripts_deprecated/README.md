@@ -1,6 +1,11 @@
 This is a collection of useful scripts that can speed up the work.
 
-### [AssetBundleBuilder.cs](/scripts_collection/AssetBundleBuilder.cs)
+⚠️ This collection is deprecated. Please visit [scripts_collection](/scripts_collection)
+for newer scripts.
+
+⚠️ 该集合的代码已经过期,新版本在 [scripts_collection](/scripts_collection)。
+
+### [AssetBundleBuilder.cs](/scripts_deprecated/AssetBundleBuilder.cs)
 Pack **all** AssetBundles in the project. The best practice is to tag only 
 AssetBundles that are necessary. In this way you can save some time and 
 resources. The output will be stored in 'Assets/AssetBundles'.
@@ -13,7 +18,7 @@ to pack the AssetBundles.</u>
 
 <u>何时使用：当你完成模组后， 最后一步就是打包。</u>
 
-### [AssignSlicedSpritesToAtlas.cs](/scripts_collection/AssignSlicedSpritesToAtlas.cs)
+### [AssignSlicedSpritesToAtlas.cs](/scripts_deprecated/AssignSlicedSpritesToAtlas.cs)
 Removes all currently packed packables in the atlas (by default) and load all sliced 
 sprites in spritesheet to it. Use this tool to greatly speed up loading sprites into atlas 
 because Unity 2021.3 doesn't seem to offer batch import but this script can do it.
@@ -25,7 +30,7 @@ because Unity 2021.3 doesn't seem to offer batch import but this script can do i
 
 <u>何时使用：当你想把Texture2D中的所有Sprites放到一个SpriteAtlas中，可以通过该工具快速完成。</u>
 
-### [AutoSpriteSheetSliceFromFolder.cs](/scripts_collection/AutoSpriteSheetSliceFromFolder.cs)
+### [AutoSpriteSheetSliceFromFolder.cs](/scripts_deprecated/AutoSpriteSheetSliceFromFolder.cs)
 Takes in a Texture2D and a folder of sliced sprites of it (The items in the
 folder must be the result of slicing of this Texture2D), apply slicing on the
 Texture2D based on the provided Sprites (It's like reversing the process from
@@ -38,7 +43,7 @@ Texture2D中切割出的。所有sprite的名字，尺寸都会被复制。
 
 <u>何时使用：当你想重现一个Texture2D在源游戏的切割，可以使用该工具。</u>
 
-### [BatchSpriteDumpImporter.cs](/scripts_collection/BatchSpriteDumpImporter.cs)
+### [BatchSpriteDumpImporter.cs](/scripts_deprecated/BatchSpriteDumpImporter.cs)
 Slice spritesheet through dumps. It's essentially functioning the same as 
 AutoSpriteSheetSlicerFromFolder but requires less space to use and much
 faster than AutoSpriteSheetSlicerFromFolder. Although I do recommend
@@ -54,7 +59,7 @@ AutoSpriteSheetSlicerFromFolder因为那个工具可以自动载入每个sprite�
 
 <u>何时使用：当你想重现一个Texture2D在源游戏的切割，可以使用该工具。</u>
 
-### [ModApplier.cs](/scripts_collection/ModApplier.cs)
+### [ModApplier.cs](/scripts_deprecated/ModApplier.cs)
 Originally named 'ModApplier.cs'. Load the mod into the game. The mod must be
 constructed in a specific way - each modified .bun file must be put in the 
 location referring to its location in the game folder. Run this script to do
@@ -71,7 +76,7 @@ can build a mod folder for faster mod application.</u>
 <u>何时使用：当你的模组已经可以在游戏中运行，可以建立一个mod文件夹然后通过该工具来实现快速
 替换模组。</u>
 
-### [RenameTextAssets.cs](/scripts_collection/RenameTextAssets.cs)
+### [RenameTextAssets.cs](/scripts_deprecated/RenameTextAssets.cs)
 Rename all loaded TextAsset (sprite dumps) files. After renaming, it will use
 number of suffix. Notice that the base name in TextAsset will also be changed.
 
@@ -87,7 +92,7 @@ require BatchSpriteDumpImporter.cs. Please refer to the
 这需要和BatchSpriteDumpImporter.cs 一起使用。
 具体示例可以参考[进阶教程](/README_进阶教程.md)</u>。
 
-### [ReplacePathID38.cs](/scripts_collection/ReplacePathID38.cs)
+### [ReplacePathID38.cs](/scripts_deprecated/ReplacePathID38.cs)
 Replace path id (of sprites TextAsset). This is located in line 38. We
 want to replace this line with the path id in the original game resource. 
 Also, this tool only work for spritesheets that do
@@ -106,7 +111,7 @@ because they are all the same in a bundle.</u>
 <u>何时使用：当你生成自己的dump文件后，需要修改texture的Path_ID。找到源文件的Path_ID
 （也是在第38行）然后运行该工具替换。你仅需要找到一个源文件Path_ID因为在同一个包里它们都是一样的。</u>
 
-### [ReplacePathIDAltas36.cs](/scripts_collection/ReplacePathIDAltas36.cs)
+### [ReplacePathIDAltas36.cs](/scripts_deprecated/ReplacePathIDAltas36.cs)
 Replace path id (of sprites TextAssest) in atlas. This is located in line 36. 
 We want to replace this line with the path id in the original game resource. 
 Warning: for non-atlas sprites, use ReplacePathID38.cs instead.
@@ -125,7 +130,7 @@ because they are all the same in a bundle.</u>
 这个工具是[第二个进阶教程](/README_进阶教程2.md)中第三步骤的自动化版本。</u>
 
 
-### [ReplacePathIDAtlas.cs](/scripts_collection/ReplacePathIDAtlas.cs)
+### [ReplacePathIDAtlas.cs](/scripts_deprecated/ReplacePathIDAtlas.cs)
 ⚠️ This is not the same as ReplacePathIDAtlas36.cs. This tool replaces the path ids
 in the SpriteAtlas file's dump (a single txt file). Requires the source sprite atlas
 dump file (for correct path ids in game).
