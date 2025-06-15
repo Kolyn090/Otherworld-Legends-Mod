@@ -34,7 +34,8 @@ public class MyAtlasDumpFixer : EditorWindow
 
         if (GUILayout.Button("Run (运行)"))
         {
-            ReplacePackedSpritesPathID();
+            // ReplacePackedSpritesPathID();
+            SortNameIDToSourceOrder();
             ReplaceRenderDataMapPathID();
         }
 
@@ -112,45 +113,73 @@ public class MyAtlasDumpFixer : EditorWindow
         var packedSpritesOwning = _owningAtlasFileJson["m_PackedSprites"]["Array"];
         var packedSpriteNameToIndexOwning = _owningAtlasFileJson["m_PackedSpriteNamesToIndex"]["Array"];
 
-        Dictionary<string, List<string>> sourceNameID = new();
         // source name & source id
+        Dictionary<string, List<long>> sourceNamePathID = new();
+        // New: copy file id
+        Dictionary<string, List<int>> sourceNameFileID = new();
+
         for (int i = 0; i < packedSpritesSource.Count(); i++)
         {
             var packedSprite = packedSpritesSource[i];
-            var pathID = (string)packedSprite["m_PathID"];
-            var name = (string)packedSpriteNameToIndexSource[i];
-            if (!sourceNameID.ContainsKey(name))
+            var pathID = long.Parse(packedSprite["m_PathID"].ToString());
+            var fileID = int.Parse(packedSprite["m_FileID"].ToString());
+            var name = packedSpriteNameToIndexSource[i].ToString();
+            if (!sourceNamePathID.ContainsKey(name))
             {
-                sourceNameID.Add(name, new() { pathID });
+                sourceNamePathID.Add(name, new() { pathID });
             }
             else
             {
-                sourceNameID[name].Add(pathID);
-                Debug.LogWarning($"{name} is duplicated, current stored IDs [{string.Join(", ", sourceNameID[name])}].");
+                sourceNamePathID[name].Add(pathID);
+                Debug.LogWarning($"{name} is duplicated, current stored Path IDs [{string.Join(", ", sourceNamePathID[name])}].");
+            }
+            if (!sourceNameFileID.ContainsKey(name))
+            {
+                sourceNameFileID.Add(name, new() { fileID });
+            }
+            else
+            {
+                sourceNameFileID[name].Add(fileID);
+                Debug.LogWarning($"{name} is duplicated, current stored file IDs [{string.Join(", ", sourceNameFileID[name])}].");
             }
         }
 
         for (int i = 0; i < packedSpritesOwning.Count(); i++)
         {
-            var name = (string)packedSpriteNameToIndexOwning[i];
+            var name = packedSpriteNameToIndexOwning[i].ToString();
             try
             {
-                var pathID = sourceNameID[name][0];
-                sourceNameID[name].RemoveAt(0);
+                var pathID = sourceNamePathID[name][0];
+                var fileID = sourceNameFileID[name][0];
+                sourceNamePathID[name].RemoveAt(0);
+                sourceNameFileID[name].RemoveAt(0);
                 packedSpritesOwning[i]["m_PathID"] = pathID;
+                packedSpritesOwning[i]["m_FileID"] = fileID;
             }
             catch
             {
                 string oldName = name;
                 name = name.Split(" #")[0];
-                var pathID = sourceNameID[name][0];
-                sourceNameID[name].RemoveAt(0);
+                var pathID = sourceNamePathID[name][0];
+                var fileID = sourceNameFileID[name][0];
+                sourceNamePathID[name].RemoveAt(0);
+                sourceNameFileID[name].RemoveAt(0);
                 packedSpritesOwning[i]["m_PathID"] = pathID;
-                Debug.LogWarning($"{oldName} is not in the source atlas dump, assign Path ID {pathID}");
+                packedSpritesOwning[i]["m_FileID"] = fileID;
+                Debug.LogWarning($"{oldName} is not in the source atlas dump, assign Path ID {pathID} and File ID {fileID}.");
             }
         }
 
         _owningAtlasFileJson["m_PackedSpriteNamesToIndex"]["Array"] = packedSpriteNameToIndexOwning;
+        File.WriteAllText(_owningAtlasFilePath, JsonConvert.SerializeObject(_owningAtlasFileJson, Formatting.Indented));
+    }
+
+    private void SortNameIDToSourceOrder()
+    {
+        JObject _sourceAtlasFileJson = JObject.Parse(File.ReadAllText(_sourceAtlasFilePath));
+        JObject _owningAtlasFileJson = JObject.Parse(File.ReadAllText(_owningAtlasFilePath));
+        _owningAtlasFileJson["m_PackedSprites"] = _sourceAtlasFileJson["m_PackedSprites"];
+        _owningAtlasFileJson["m_PackedSpriteNamesToIndex"] = _sourceAtlasFileJson["m_PackedSpriteNamesToIndex"];
         File.WriteAllText(_owningAtlasFilePath, JsonConvert.SerializeObject(_owningAtlasFileJson, Formatting.Indented));
     }
 

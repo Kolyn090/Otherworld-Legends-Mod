@@ -89,7 +89,7 @@ public class ImportSliceFromDumps : EditorWindow
             string assetPath = AssetDatabase.GetAssetPath(_targetTexture);
             TextureImporter ti = AssetImporter.GetAtPath(assetPath) as TextureImporter;
             List<SpriteMetaData> metasToImport = new();
-
+            
             Dictionary<string, Vector2> identified = FindIdentifiedInfo();
             if (identified == null)
             {
@@ -117,6 +117,7 @@ public class ImportSliceFromDumps : EditorWindow
 
             if (ti != null)
             {
+                ti.spriteImportMode = SpriteImportMode.Multiple;
                 ti.spritesheet = metasToImport.ToArray();
                 EditorUtility.SetDirty(ti);
                 ti.SaveAndReimport();
@@ -268,7 +269,7 @@ public class ImportSliceFromDumps : EditorWindow
                                                             List<SpriteMetaData> currentMetas)
     {
         int GetValidNameIndex(int addMetaNameIndex,
-                                HashSet<int> aaaNamesInCurrentMetasIndices,
+                                HashSet<int> aaaNamesInCurrentMetasIndices, 
                                 HashSet<int> processedAddMetaNamesIndices)
         {
             bool IsInAnyList(int index)

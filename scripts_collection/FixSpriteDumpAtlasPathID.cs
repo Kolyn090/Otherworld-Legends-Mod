@@ -97,9 +97,9 @@ public class FixSpriteDumpAtlasPathID : EditorWindow
             JObject spriteJson = JObject.Parse(File.ReadAllText(jsonFile));
             if (spriteJson.ContainsKey("m_Rect")) // Make sure it's a Sprite Dump File
             {
-                spriteJson["m_SpriteAtlas"]["m_PathID"] = _replacePathID;
+                spriteJson["m_SpriteAtlas"]["m_PathID"] = long.Parse(_replacePathID);
             }
-            File.WriteAllText(_owningFolderPath, JsonConvert.SerializeObject(spriteJson, Formatting.Indented));
+            File.WriteAllText(jsonFile, JsonConvert.SerializeObject(spriteJson, Formatting.Indented));
         }
     }
 }

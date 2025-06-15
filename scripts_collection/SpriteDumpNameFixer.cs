@@ -193,6 +193,11 @@ public class SpriteDumpNameFixer : EditorWindow
 
                 // 2. Replace Path ID in the file name with the correct Path ID (based on source dumps)
                 // The hashtag part indicates that two Dumps are almost identical.
+                if (!sourceNameID.ContainsKey(newName))
+                {
+                    Debug.LogWarning($"{newName} is not in sourceNameID dictionary. It's probably extra.");
+                    continue;
+                }
                 string sourcePathID = sourceNameID[newName][0];
                 sourceNameID[newName].RemoveAt(0);
                 Match match = Regex.Match(finalName, @"-(\-?\d+)(?=\.\w+$)");
